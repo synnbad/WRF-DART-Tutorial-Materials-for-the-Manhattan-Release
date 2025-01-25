@@ -25,6 +25,7 @@ datefnl=2017042712 # Target date YYYYMMDDHH  # Set this appropriately #%%%#
 # Likely do not need to change anything below
 ########################################################################
 
+
 source "$paramfile"
 
 echo "$(uname -a)"
