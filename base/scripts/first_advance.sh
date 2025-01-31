@@ -47,7 +47,7 @@ ${gdatef[1]}  ${gdatef[0]}
 ${gdate[1]}   ${gdate[0]}
 $yyyy $mm $dd $hh $nn $ss
            1
-srun -n10 ./wrf.exe 
+srun -n50 ./wrf.exe 
 
 EOF
 
@@ -81,16 +81,6 @@ echo "NUM_DOMANAINS = $NUM_DOMAINS"
 
 # Integrate the model forward in time
 "${RUN_DIR}/new_advance_model.sh" $emember $NUM_DOMAINS "filter_control${icnum}" $paramfile
-
-
-
-
-
-
-exit
-
-
-
 
 
 ${REMOVE} "${RUN_DIR}/filter_control${icnum}"

@@ -77,10 +77,10 @@ EOF
 #SBATCH --output=first_advance_${n}.out
 #SBATCH --error=first_advance_${n}.err
 #SBATCH --account=${COMPUTER_CHARGE_ACCOUNT}
-#SBATCH -t 00:10:00
+#SBATCH -t 01:00:00
 #SBATCH --partition=${ADVANCE_QUEUE}
 #SBATCH --priority=${ADVANCE_PRIORITY}
-#SBATCH -n 19
+#SBATCH -n 50
 #=================================================================
 
 echo "rt_assim_init_${n}.sh is running in $(pwd)"

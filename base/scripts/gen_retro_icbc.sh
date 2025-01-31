@@ -32,7 +32,7 @@ echo "gen_retro_icbc.sh is running in $(pwd)"
 
 datea=2017042700
 datefnl=2017042712 # set this appropriately #%%%#
-paramfile="/gpfs/home/sa24m/Research/base/scripts/param.sh"   # set this appropriately #%%%#
+paramfile="/gpfs/home/sa24m/scratch/base/scripts/param.sh"   # set this appropriately #%%%#
 
 
 source "$paramfile"
@@ -70,7 +70,7 @@ start_date = 2*'${start_date}',
 /end_date/c\
 end_date   = 2*'${end_date}',
 /prefix/c\
-prefix = 'PL',
+prefix = 'FILE',
 EOF
 
 
@@ -93,8 +93,8 @@ EOF
 
    # gribfile_a=${GRIB_DATA_DIR}/${datea}/gfs_ds084.1/gfs.0p25.${datea}.f000.grib2
    # gribfile_a=${BASE_DIR}/gfs.0p25.${datea}.f000.grib2
-   gribfile_b=/gpfs/home/sa24m/Research/DATA/ERA_5_input/level_dart_new_api.grib
-   gribfile_a=/gpfs/home/sa24m/Research/DATA/ERA_5_input/surface_dart_new_api.grib
+   # gribfile_b=/gpfs/home/sa24m/scratch/DATA/ERA_5_input/level_dart_new_api.grib
+   gribfile_a=/gpfs/home/sa24m/scratch/DATA/ERA_5_input/*_dart_new_api.grib
    # gribfile_b=${GRIB_DATA_DIR}/${datea}/gfs_ds084.1/gfs.0p25.${datea}.f006.grib2
    # gribfile_b=/gpfs/home/sa24m/Research/base/gfs.0p25.2017042700.f006.grib2
    # gribfile_a=/gpfs/home/sa24m/Research/base/gfs.0p25.2017042700.f000.grib2
@@ -104,38 +104,19 @@ EOF
    #gribfile_b=/gpfs/home/sa24m/Research/DATA/dart_tut_grib/gdas1.fnl0p25.2017042706.f00.grib2
 
    # gribfile_b=${GRIB_DATA_DIR}/${datea}/gfs_ds084.1/gfs.0p25.${datea}.f006.grib2
-   ${LINK} "$gribfile_a" GRIBFILE.AAA
+   # ${LINK} "$gribfile_a" GRIBFILE.AAA
    # ${LINK} "$gribfile_b" GRIBFILE.AAB
-   # ./link_grib.csh "$gribfile_a"
+   cp ${WPS_SRC_DIR}/link_grib.csh ${ICBC_DIR}/
+   ./link_grib.csh "$gribfile_a"
 
    ${REMOVE} output.ungrib.exe.${GRIB_SRC}
    "${WPS_SRC_DIR}/ungrib.exe" &> output.ungrib.exe.${GRIB_SRC}
-    echo "ungrib for PL done"
-
-   ${REMOVE} script.sed
-   ${REMOVE} namelist.wps
-   cat > script.sed << EOF
-/start_date/c\
-start_date = 2*'${start_date}',
-/end_date/c\
-end_date   = 2*'${end_date}',
-/prefix/c\
-prefix = 'SFC',
-EOF
-
-   sed -f script.sed "${TEMPLATE_DIR}/namelist.wps.template" > namelist.wps
-
-   ${LINK} "$gribfile_b" GRIBFILE.AAB
-
-   ${REMOVE} output.ungrib.exe.${GRIB_SRC}
-   "${WPS_SRC_DIR}/ungrib.exe" &> output.ungrib.exe.${GRIB_SRC}
-   echo "ungrib SFC done"
-
+   # echo "ungrib for PL done"
 
    ${REMOVE} output.metgrid.exe
    "${WPS_SRC_DIR}/metgrid.exe" &> output.metgrid.exe
 
-   ${LINK} ${WPS_SRC_DIR}/met_em.d01.* .
+   ${COPY} ${WPS_SRC_DIR}/met_em.d01.* .
 
    datef=$(echo "$datea $ASSIM_INT_HOURS" | "${DART_DIR}/models/wrf/work/advance_time")
    gdatef=( $(echo "$datef 0 -g" | "${DART_DIR}/models/wrf/work/advance_time") )
@@ -220,8 +201,8 @@ EOF
       echo "" >> script.sed
       echo "" >> script.sed
       echo 's%${1}%'"${paramfile}%g"                   >> script.sed
-      sed -f script.sed "${SHELL_SCRIPTS_DIR}/real.sh">real.sh
-
+      sed -f script.sed "${SHELL_SCRIPTS_DIR}/real.sh">real.sh.save
+      mv real.sh.save real.sh
       sbatch real.sh
 
       # need to look for something to know when this job is done

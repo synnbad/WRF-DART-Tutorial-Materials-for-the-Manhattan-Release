@@ -32,7 +32,7 @@ NUM_DOMAINS=1
 #  Directories where things are run
 #  IMPORTANT : Scripts provided rely on this directory structure and names relative to BASE_DIR.
 #              Do not change, otherwise tutorial will fail.    
-BASE_DIR="/gpfs/home/sa24m/Research/base"     # set this appropriately #%%%#
+BASE_DIR="/gpfs/home/sa24m/scratch/base"     # set this appropriately #%%%#
 RUN_DIR="${BASE_DIR}/rundir"
 TEMPLATE_DIR="${BASE_DIR}/template"
 OBSPROC_DIR="${BASE_DIR}/obsproc"
@@ -44,10 +44,10 @@ PERTS_DIR="${BASE_DIR}/perts"
 
 #  Assign path to DART, WRF, WPS and WRFDA build
 SHELL_SCRIPTS_DIR="${BASE_DIR}/scripts"
-DART_DIR="/gpfs/home/sa24m/Research/DART"                    # set this appropriately #%%%#
-WRF_DM_SRC_DIR="/gpfs/home/sa24m/Research/WRFV4.5.2"                    # set this appropriately #%%%#
-WPS_SRC_DIR="/gpfs/home/sa24m/Research/WPSV4.5"                      # set this appropriately #%%%#
-VAR_SRC_DIR="/gpfs/home/sa24m/Research/WRFDA"                   # set this appropriately #%%%#
+DART_DIR="/gpfs/home/sa24m/scratch/DART"                    # set this appropriately #%%%#
+WRF_DM_SRC_DIR="//gpfs/home/sa24m/scratch/WRF/V4.6.1"                    # set this appropriately #%%%#
+WPS_SRC_DIR="/gpfs/home/sa24m/scratch/WPS/V4.5/WPSV4.5"                      # set this appropriately #%%%#
+VAR_SRC_DIR="/gpfs/home/sa24m/scratch/WRFDA"                   # set this appropriately #%%%#
 
 # for generating wrf template files
 GEO_FILES_DIR="/gpfs/home/sa24m/Research/WPSV4.5"            # set this appropriately #%%%#
@@ -113,5 +113,5 @@ export LIST="ls"
 echo "param.sh done"
 
 
-# exit 0
+#exit 0
 

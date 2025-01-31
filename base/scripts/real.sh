@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+
+#======================================
 #SBATCH --job-name=run_real
 #SBATCH -A chipilskigroup_q
 #SBATCH --time=00:10:00
@@ -7,25 +10,26 @@
 #SBATCH --qos=normal
 #SBATCH --output=run_real.out
 #SBATCH --error=run_real.err
-#SBATCH --ntasks=10
+#SBATCH --ntasks=25
 #SBATCH --export=ALL
-
-source /gpfs/home/sa24m/Research/base/scripts/param.sh
-
-
-cd ${ICBC_DIR}
+#======================================
 
 
-module restore
+paramfile="$1"
+source "$paramfile"
 
-srun ${RUN_DIR}/WRF_RUN/real.exe
+#  Change to the ICBC_DIR directory
+cd /gpfs/home/sa24m/scratch/base/icbc
+#cd ${ICBC_DIR}
+# Execute the WRF real.exe program using MPI
+# echo ${RUN_DIR}
+#srun ${RUN_DIR}/WRF_RUN/real.exe
+srun /gpfs/home/sa24m/scratch/base/rundir/WRF_RUN/real.exe
 
-printf "%(%H:%M)T\n"
+# Check if the program completed successfully
+if grep -q "SUCCESS COMPLETE REAL_EM INIT" ./rsl.out.0000; then
+    # Create a file to indicate successful completion
+    touch /gpfs/home/sa24m/scratch/base/icbc/real_done
+fi
 
-#if [ "$(grep "Successful completion of program real.exe" ./rsl.out.0000 | wc -l)"-eq 1 ]; then
-    touch "${ICBC_DIR}/real_done"
 
- touch "${ICBC_DIR}/real_done"
-
-
-exit 0
