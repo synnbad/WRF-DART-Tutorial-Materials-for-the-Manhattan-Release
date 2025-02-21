@@ -6,7 +6,6 @@
 ; should be called 'wrfinput_next', and is the mean
 ; state for the target lateral boundaries.
 
-
 begin
 
   err = NhlGetErrorObjectId()
