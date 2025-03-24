@@ -46,11 +46,11 @@ PERTS_DIR="${BASE_DIR}/perts"
 SHELL_SCRIPTS_DIR="${BASE_DIR}/scripts"
 DART_DIR="/gpfs/home/sa24m/scratch/DART/DART"                    # set this appropriately #%%%#
 WRF_DM_SRC_DIR="/gpfs/home/sa24m/scratch/WRF/V4.6.1"                    # set this appropriately #%%%#
-WPS_SRC_DIR="/gpfs/home/sa24m/scratch/WPS/V4.5/WPSV4.5"                      # set this appropriately #%%%#
+WPS_SRC_DIR="/gpfs/research/scratch/sa24m/WPS/V4.5"                      # set this appropriately #%%%#
 VAR_SRC_DIR="/gpfs/home/sa24m/scratch/WRFDA"                   # set this appropriately #%%%#
 
 # for generating wrf template files
-GEO_FILES_DIR="/gpfs/home/sa24m/scratch/WPS/V4.5/WPSV4.5"            # set this appropriately #%%%#
+GEO_FILES_DIR="/gpfs/research/scratch/sa24m/WPS/V4.5"            # set this appropriately #%%%#
 GRIB_DATA_DIR="${ICBC_DIR}/grib_data"                     # set this appropriately #%%%#
 GRIB_SRC='ERA-interim.pl'                                     # set this appropriately #%%%#
 
@@ -75,14 +75,14 @@ if [[ $SUPER_PLATFORM == "derecho" ]]; then
    # Set these appropriately for your PBS system  #%%%#  
    FILTER_QUEUE="main"
    FILTER_PRIORITY="premium"
-   FILTER_TIME=0:25:00
+   FILTER_TIME=06:55:00
    FILTER_NODES=2
    FILTER_PROCS=96
    FILTER_MPI=96
 
    ADVANCE_QUEUE="main"
    ADVANCE_PRIORITY="premium"
-   ADVANCE_TIME=0:20:00
+   ADVANCE_TIME=05:59:00
    ADVANCE_NODES=1
    ADVANCE_PROCS=96
    ADVANCE_MPI=96
@@ -90,9 +90,9 @@ else
    # 'LSF' queueing system example
    # Set these appropriately for your LSF or Slurm system #%%%# 
    FILTER_QUEUE=chipilskigroup_q
-   FILTER_TIME=01:00:00
+   FILTER_TIME=06:59:00
    ADVANCE_QUEUE=chipilskigroup_q
-   ADVANCE_TIME=00:18:00
+   ADVANCE_TIME=06:58:00
    ADVANCE_PRIORITY=normal
    FILTER_NODES=2
    FILTER_PROCS=20

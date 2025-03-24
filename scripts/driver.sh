@@ -240,11 +240,12 @@ while true; do
 #SBATCH --output=assimilate_${datea}.%j.log\\
 #SBATCH --account=chipilskigroup_q\\
 #SBATCH --constraint="intel"\\
-#SBATCH --time=01:00:00\\
+#SBATCH --time=06:00:00\\
+#SBATCH -n 96\\
+#SBATCH --nodes=16\\
 #SBATCH --mem-per-cpu=8000M\\
-#SBATCH -n 50\\
-#SBATCH --ntasks-per-node=5
 #SBATCH --export=ALL\\
+
 #==================================================================
 s%\${1}%${datea}%g
 s%\${2}%${paramfile}%g
@@ -335,7 +336,7 @@ EOF
     if [ -e assimilate.sh ]; then ${REMOVE} "${RUN_DIR}/assimilate.sh"; fi
 
     echo "Listing contents of rundir before archiving at $(date)"
-    ls -l *.nc blown* dart_log* filter_* input.nml obs_seq* Output/inf_ic*
+    ls -l *.nc dart_log* filter_* input.nml obs_seq* Output/inf_ic*
     mkdir -p "${OUTPUT_DIR}/${datea}/"{Inflation_input,WRFIN,PRIORS,logs}
 
     num_vars=${#increment_vars_a[@]}  # Get the number of elements in the array
@@ -425,9 +426,10 @@ EOF
 #SBATCH --output=assim_advance_${n}.%j.log\\
 #SBATCH --account=chipilskigroup_q\\
 #SBATCH --constraint="intel"\\
-#SBATCH --time=01:00:00\\
+#SBATCH --time=06:00:00\\
+#SBATCH -n 50\\
+#SBATCH --nodes=10\\
 #SBATCH --mem-per-cpu=8000M\\
-#SBATCH -n 90\\
 #SBATCH --export=ALL\\
 #==================================================================
 s%\${1}%${datea}%g
@@ -607,7 +609,7 @@ EOF
     gunzip -f wrfinput_d*_"${gdatef[0]}"_"${gdatef[1]}"_mean.gz
 
     cd "${RUN_DIR}"
-    ${MOVE} "${RUN_DIR}/assim"*.o*            "${OUTPUT_DIR}/${datea}/logs/." ##slurm dont create these
+    # ${MOVE} "${RUN_DIR}/assim"*.o*            "${OUTPUT_DIR}/${datea}/logs/." ##slurm dont create these
     ${MOVE} "${RUN_DIR}"/*log                 "${OUTPUT_DIR}/${datea}/logs/."
     ${REMOVE} "${RUN_DIR}/input_priorinf_"*
     ${REMOVE} "${RUN_DIR}/static_data"*

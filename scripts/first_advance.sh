@@ -47,7 +47,7 @@ ${gdatef[1]}  ${gdatef[0]}
 ${gdate[1]}   ${gdate[0]}
 $yyyy $mm $dd $hh $nn $ss
            1
-srun -n50 ./wrf.exe
+srun ./wrf.exe
 
 EOF
 

@@ -36,8 +36,7 @@ done
 gdate=($(echo $initial_date 0h -g | ${DART_DIR}/models/wrf/work/advance_time))
 gdatef=($(echo $initial_date ${ASSIM_INT_HOURS}h -g | ${DART_DIR}/models/wrf/work/advance_time))
 
-
-wdate=$(echo "$initial_date" | "${DART_DIR}/models/wrf/work/advance_time")
+wdate=$(echo "$initial_date 0h -w" | "${DART_DIR}/models/wrf/work/advance_time")
 
 yyyy=$(echo "$initial_date" | cut -b1-4)
 
@@ -76,13 +75,16 @@ EOF
 #SBATCH --job-name=first_advance_${n}
 #SBATCH --output=first_advance_${n}.out
 #SBATCH --error=first_advance_${n}.err
-#SBATCH --account=backfill
-#SBATCH -t 01:00:00
-#SBATCH --partition=backfill
+#SBATCH --account=chipilskigroup_q
+#SBATCH -t 04:00:00
+#SBATCH --partition=chipilskigroup_q
 #SBATCH --priority=${ADVANCE_PRIORITY}
-#SBATCH -n 50
+#SBATCH -n 84
 #SBATCH --mem-per-cpu=8000M
 #=================================================================
+ulimit -s unlimited
+export MPI_SHEPHERD=FALSE
+
 
 echo "rt_assim_init_${n}.sh is running in $(pwd)"
 

@@ -686,17 +686,14 @@ EOF
 
         # Run WRF here
         export MPI_SHEPHERD=FALSE
-       
-        echo " I commented above script"
-        echo "ensemble_member"
 
         ${ADV_MOD_COMMAND} > rsl.out.integration 2>&1
-        echo "ADV_MOD_COMMAND ${ADV_MOD_COMMAND}"
+        echo "ADV_MOD_COMMAND = ${ADV_MOD_COMMAND}"
 
         echo "1"
         if [ -e rsl.out.0000 ]; then cat rsl.out.0000 >> rsl.out.integration; fi
         ${COPY} rsl.out.integration "${WRFOUTDIR}/wrf.out_${targdays}_${targsecs}_${ensemble_member}"
-        sleep 1
+        sleep 3
 
         SUCCESS=$(grep -c "wrf: SUCCESS COMPLETE WRF" rsl.out.integration)
         if [ "$SUCCESS" -eq 0 ]; then
